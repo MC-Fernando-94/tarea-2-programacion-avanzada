@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Temporizador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #d82f2f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            color: #080707;
+        }
+        
+        #countdown {
+            font-size: 2rem;
+            color: #0a0202;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Temporizador de Cuenta Regresiva</h1>
+    <div id="countdown">10:00:00</div>
+
+    <script>
+        const countdown = document.getElementById('countdown');
+
+        const updateCountdown = () => {
+            const timeParts = countdown.textContent.split(':');
+            let hours = parseInt(timeParts[0]);
+            let minutes = parseInt(timeParts[1]);
+            let seconds = parseInt(timeParts[2]);
+
+            if (hours === 0 && minutes === 0 && seconds === 0) {
+                clearInterval(countdownInterval);
+                countdown.textContent = "¡Tiempo terminado!";
+            } else {
+                if (seconds > 0) {
+                    seconds--;
+                } else {
+                    seconds = 59;
+                    if (minutes > 0) {
+                        minutes--;
+                    } else {
+                        minutes = 59;
+                        if (hours > 0) {
+                            hours--;
+                        }
+                    }
+                }
+
+                countdown.textContent = `${addLeadingZero(hours)}:${addLeadingZero(minutes)}:${addLeadingZero(seconds)}`;
+            }
+        };
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        function addLeadingZero(value) {
+            return value < 10 ? "0" + value : value;
+        }
+    </script>
+</body>
+
+</html>

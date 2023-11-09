@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cambio de Imagen</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+            border: 2px solid #333;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2>Cambio de Imagen al Pasar el Ratón</h2>
+        <div class="image-container">
+            <img style="text-align: center;" src="img1.png" alt="Imagen 1" onmouseover="changeImage(this)" onmouseout="restoreImage(this)">
+        </div>
+    </div>
+
+    <script>
+        let originalImage = "img1.png";
+        let newImage = "img2.webp";
+
+        function changeImage(img) {
+            document.querySelector('.image-container img').src = newImage;
+            const avgColor = getAverageColor(img);
+            document.querySelector('.image-container').style.borderColor = avgColor;
+        }
+
+        function restoreImage(img) {
+            document.querySelector('.image-container img').src = originalImage;
+            document.querySelector('.image-container').style.borderColor = "#333";
+        }
+
+        function getAverageColor(img) {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            const data = ctx.getImageData(0, 0, img.width, img.height).data;
+
+            let r = 0;
+            let g = 0;
+            let b = 0;
+
+            for (let i = 0; i < data.length; i += 4) {
+                r += data[i];
+                g += data[i + 1];
+                b += data[i + 2];
+            }
+
+            const numPixels = data.length / 4;
+            r = Math.round(r / numPixels);
+            g = Math.round(g / numPixels);
+            b = Math.round(b / numPixels);
+
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+    </script>
+</body>
+
+</html>

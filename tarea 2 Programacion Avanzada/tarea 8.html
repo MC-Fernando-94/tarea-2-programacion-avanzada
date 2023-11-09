@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Carrusel de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .carousel-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            position: relative;
+        }
+        
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            background-color: rgba(196, 38, 38, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: background-color 0.3s;
+            z-index: 1;
+            /* Añadimos esto para superponer las flechas en las imágenes */
+        }
+        
+        .carousel-button:hover {
+            background-color: #eccbcb;
+        }
+        
+        .carousel-prev {
+            left: 0;
+            top: 20%;
+        }
+        
+        .carousel-next {
+            right: 1%;
+            top: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Carrusel de Imágenes</h1>
+    <div class="carousel-container">
+        <button class="carousel-button carousel-prev" onclick="prevSlide()">&#8249;</button>
+        <div class="carousel-slides">
+            <div class="carousel-slide"><img src="imagenes1.jpg" alt="Imagen 1"></div>
+            <div class="carousel-slide"><img src="imagenes2.jpg" alt="Imagen 2"></div>
+            <div class="carousel-slide"><img src="imagenes3.avif" alt="Imagen 3"></div>
+        </div>
+        <button class="carousel-button carousel-next" onclick="nextSlide()">&#8250;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const offset = -currentSlide * 100;
+            document.querySelector('.carousel-slides').style.transform = `translateX(${offset}%)`;
+        }
+
+        setInterval(nextSlide, 5000); // Cambia automáticamente cada 5 segundos
+    </script>
+</body>
+
+</html>

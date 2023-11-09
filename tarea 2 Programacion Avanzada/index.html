@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0
+        }
+        
+        #elemento {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            border: 2px solid #0077b6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+        }
+        
+        #cambiarColorButton {
+            margin-top: 20px;
+            background-color: #0077b6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="elemento">Elemento a cambiar de color</div>
+        <button id="cambiarColorButton">Cambiar Color de Fondo</button>
+    </div>
+
+    <script>
+        function cambiarColorDeFondo() {
+            var colorAleatorio = "#" + Math.floor(Math.random() * 16777215).toString(16);
+            document.getElementById("elemento").style.backgroundColor = colorAleatorio;
+        }
+        document.getElementById("cambiarColorButton").addEventListener("click", cambiarColorDeFondo);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Juego de Preguntas y Respuestas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        #quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            max-width: 400px;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .options button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="quiz-container">
+        <h1>Juego de Preguntas y Respuestas</h1>
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let score = 0;
+        let currentQuestion = 0;
+        const questions = [{
+            question: "¿Cuál es la capital de Francia?",
+            correct: 0
+        }, {
+            question: "¿Cuál es el planeta más grande del sistema solar?",
+            correct: 1
+        }, {
+            question: "¿Cuál es el animal terrestre más rápido?",
+            correct: 0
+        }, {
+            question: "¿Cuál es el elemento más abundante en la Tierra?",
+            correct: 0
+        }, {
+            question: "¿Quién escribió la obra 'Don Quijote de la Mancha'?",
+            correct: 0
+        }];
+
+        function showQuestion(index) {
+            const questionElement = document.getElementById('question');
+            questionElement.textContent = `Pregunta ${index + 1}: ${questions[index].question}`;
+            document.getElementById('result').textContent = '';
+        }
+
+        function showOptions(index) {
+            const optionsElement = document.getElementById('options');
+            optionsElement.innerHTML = '';
+            for (let i = 0; i < 2; i++) {
+                const button = document.createElement('button');
+                button.textContent = i === questions[index].correct ? 'Respuesta Correcta' : 'Respuesta Incorrecta';
+                button.onclick = () => checkAnswer(i === questions[index].correct);
+                optionsElement.appendChild(button);
+            }
+        }
+
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                score++;
+                alert('Respuesta Correcta');
+            } else {
+                alert('Respuesta Incorrecta');
+            }
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion(currentQuestion);
+                showOptions(currentQuestion);
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.style.display = 'none';
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `Puntuación final: ${score} de ${questions.length}`;
+        }
+
+        showQuestion(currentQuestion);
+        showOptions(currentQuestion);
+    </script>
+</body>
+
+</html>
